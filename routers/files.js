@@ -65,14 +65,18 @@ router.post("/login", (req, res) => {
       });
 
       if (loginPP.length == 0) {
-        res.redirect("/");
+        res.render("login", {
+          wrongUN: true,
+        });
       } else if (
         loginPP[0].name == username &&
         loginPP[0].password == password
       ) {
         res.redirect("/files/body");
       } else {
-        res.redirect("/");
+        res.render("login", {
+          wrongPW: true,
+        });
       }
     });
 });

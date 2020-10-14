@@ -8,20 +8,61 @@
     <div class="col-md-6 offset-md-3 px-5 ">
         <form action="/files/login" method="POST">
             <h1 class="mb-4">oh...hi!!</h1>
+            {{#if normal}}
             <div class="form-group">
                 <div class="input-group input-group-lg">
                     <input type="text" id="username" name="username" class="form-control bg-light text-black"
                         placeholder="Username">
                 </div>
             </div>
+            {{/if}}
+            {{#if wrongUN}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <input type="text" id="username" name="username" class="form-control bg-light text-black is-invalid"
+                        placeholder="Username">
+                    <div class="invalid-feedback">
+                        Username Not Exist
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+            {{#if wrongPW}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <input type="text" id="username" name="username" class="form-control bg-light text-black"
+                        placeholder="Username">
+                </div>
+            </div>
+            {{/if}}
 
-
+            {{#if normal}}
             <div class="form-group">
                 <div class="input-group input-group-lg">
                     <input type="password" id="password" name="password" class="form-control bg-light text-black"
                         placeholder="Password">
                 </div>
             </div>
+            {{/if}}
+            {{#if wrongUN}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <input type="password" id="password" name="password" class="form-control bg-light text-black"
+                        placeholder="Password">
+                </div>
+            </div>
+            {{/if}}
+            {{#if wrongPW}}
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <input type="password" id="password" name="password"
+                        class="form-control bg-light text-black is-invalid" placeholder="Password">
+                    <div class="invalid-feedback">
+                        Wrong Password
+                    </div>
+                </div>
+            </div>
+            {{/if}}
 
             <input type="submit" value="Sign In" class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
 

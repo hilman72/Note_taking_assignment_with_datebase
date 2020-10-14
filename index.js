@@ -16,7 +16,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));
 
 app.get("/", function (req, res) {
-  res.render("login");
+  res.render("login", {
+    normal: true,
+  });
 });
 
 app.listen(8000, function () {

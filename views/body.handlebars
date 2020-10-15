@@ -1,16 +1,14 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand">Paper</a>
-        <ul class="navbar-nav"></ul>
+        <a class="navbar-brand">Note.js</a>
+        <button type="button" id="edit-btn" class="btn btn-info mr-2"><a class="text-light mr-auto"
+                href="http://localhost:8000/">Sign out</a></button>
     </div>
 </nav>
 <div class="container">
-    <div class="text-center mt-5 mb-5">
-        <h1 class="display-1">Note.js</h1>
-    </div>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-md-6 px-5 ">
-            <form action="/files/post" method="POST">
+            <form action="/files/post/{{c_user}}" method="POST">
                 <h1 class="mb-4">New Note</h1>
                 <div class="form-group">
                     <div class="input-group input-group-lg">
@@ -37,37 +35,95 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-dark text-light">
+                                <i class="fas fa-lock-open"></i>
+                            </span>
+                        </div>
+                        <select class="form-control" id="pb" name="pb">
+                            <option>public</option>
+                            <option>private</option>
+                        </select>
+                    </div>
+                    <p class=""><small class="text-muted">* Public note can be <"edit"> and <"delete"> by other
+                                    user</small>
+                    </p>
+                </div>
+
                 <input type="submit" value="Submit" class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
+
             </form>
         </div>
 
 
         <div class="col-md-6">
-            <h1 class="text-center">You node</h1>
-            <hr>
-            {{#each note}}
-            <div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h4 class="class-title">{{this.title}}</h4>
-                        <div class="card-text mt-3">
-                            {{this.message}}
+            <div class="d-flex justify-content-between ">
+                <h1 class="ml-4">You node </h1>
+                <div class="mr-4 d-flex">
+                    <button type="button" id="edit-btn" class="btn btn-info mr-2"><a class="text-light"
+                            href="http://localhost:8000/files/body/{{c_user}}">Public</a></button>
+                    <button type="button" id="edit-btn" class="btn btn-info mr-2"><a class="text-light"
+                            href="http://localhost:8000/files/body/private/{{c_user}}">Private</a></button>
 
-
-                        </div>
-                        <div class="mt-3 d-flex">
-                            <button type="button" id="edit-btn" class="btn btn-info mr-2"><a class="text-light"
-                                    href="http://localhost:8000/files/edit/{{this.id}}">Edit</a></button>
-                            <form method="post" action="/files/delete/{{this.id}}">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <button type="submit" class="btn btn-danger text-light">Delete</button>
-                            </form>
-                        </div>
-
-                    </div>
                 </div>
             </div>
-            {{/each}}
+            <hr>
+            <div class="row">
+                {{#if public}}
+                {{#each note}}
+                <div class="col-md-6 px-2 ">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="class-title">{{this.title}}</h3>
+                            <div class="card-text mt-3">
+                                {{this.message}}
+
+
+                            </div>
+                            <p class="card-text text-right"><small class="text-muted">Created by {{this.editor}}</small>
+                            </p>
+                            <div class="mt-3 d-flex">
+                                <button type="button" id="edit-btn" class="btn btn-info mr-2"><a class="text-light"
+                                        href="http://localhost:8000/files/edit/{{this.editor}}/{{this.id}}">Edit</a></button>
+                                <form method="post" action="/files/delete/{{this.editor}}/{{this.id}}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger text-light">Delete</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+                {{#if private}}
+                {{#each note}}
+                <div class="col-md-6 px-2 ">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="class-title">{{this.title}}</h3>
+                            <div class="card-text mt-3">
+                                {{this.message}}
+
+
+                            </div>
+                            <div class="mt-3 d-flex">
+                                <button type="button" id="edit-btn" class="btn btn-info mr-2"><a class="text-light"
+                                        href="http://localhost:8000/files/edit/private/{{this.editor}}/{{this.id}}">Edit</a></button>
+                                <form method="post" action="/files/delete/private/{{this.editor}}/{{this.id}}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger text-light">Delete</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/if}}
+            </div>
         </div>
 
     </div>

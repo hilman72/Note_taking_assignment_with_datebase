@@ -67,6 +67,7 @@ router.get("/edit/:name/:id", function (req, res) {
       res.render("edit", {
         detail,
         c_user,
+        public: true,
       });
     });
 });
@@ -89,6 +90,7 @@ router.get("/edit/private/:name/:id", function (req, res) {
       res.render("edit", {
         detail,
         c_user,
+        private: true,
       });
     });
 });

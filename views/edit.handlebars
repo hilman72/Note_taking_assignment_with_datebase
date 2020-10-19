@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand">Paper</a>
+        <a class="navbar-brand">Note.js</a>
         <ul class="navbar-nav"></ul>
     </div>
 </nav>
@@ -10,6 +10,7 @@
     </div>
     <div class="row justity-content-center">
         <div class="col-md-6 offset-md-3 px-5 ">
+            {{#if public}}
             <form action="/files/put/{{detail.editor}}/{{detail.id}}" method="POST">
                 <h1 class="mb-4">Edit Note</h1>
                 <div class="form-group">
@@ -59,6 +60,58 @@
             </form>
             <button class="btn btn-info btn-block btn-lg mt-3"><a class="text-light"
                     href="http://localhost:8000/files/body/{{c_user}}">Cancel</a></button>
+            {{/if}}
+            {{#if private}}
+            <form action="/files/put/private/{{detail.editor}}/{{detail.id}}" method="POST">
+                <h1 class="mb-4">Edit Note</h1>
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-dark text-light">
+                                <i class="fas fa-heading"></i>
+                            </span>
+                        </div>
+                        <input type="text" id="title" name="title" class="form-control bg-light text-black"
+                            placeholder="Title" value={{detail.title}}>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-dark text-light">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                        </div>
+                        <textarea class="form-control text-dark" id="message" name="message"
+                            placeholder="Massage">{{detail.message}}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-dark text-light">
+                                <i class="fas fa-lock-open"></i>
+                            </span>
+                        </div>
+                        <select class="form-control" id="pb" name="pb">
+                            <option>public</option>
+                            <option>private</option>
+                        </select>
+                    </div>
+                    <p class=""><small class="text-muted">* Public note can be <"edit"> and <"delete"> by other
+                                    user</small>
+                    </p>
+                </div>
+
+                <input type="submit" value="Submit" class="btn bg-dark text-light btn-block btn-lg m-0 submit-btn">
+
+            </form>
+            <button class="btn btn-info btn-block btn-lg mt-3"><a class="text-light"
+                    href="http://localhost:8000/files/body/private/{{c_user}}">Cancel</a></button>
+            {{/if}}
         </div>
     </div>
 

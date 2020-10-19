@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
+
+const passport = require("passport");
 
 const db = require("knex")({
   // CODE HERE
@@ -119,30 +120,20 @@ router.post("/post/:name", (req, res) => {
   }
 });
 
-router.post("/login", (req, res) => {
-  const { username, password } = req.body;
-  db.select("*")
-    .from("users")
-    .then((data) => {
-      let loginPP = data.filter((ppName) => {
-        return ppName.name == username;
-      });
+//check pw
+router.post(
+  "/login",
+  passport.authenticate("local-login", { failureRedirect: "/" }),
+  function (req, res) {
+    const { username, password } = req.body;
+    res.redirect(`/files/body/${username}`);
+  }
+);
 
-      if (loginPP.length == 0) {
-        res.render("login", {
-          wrongUN: true,
-        });
-      } else if (
-        loginPP[0].name == username &&
-        loginPP[0].password == password
-      ) {
-        res.redirect(`/files/body/${username}`);
-      } else {
-        res.render("login", {
-          wrongPW: true,
-        });
-      }
-    });
+// logout route
+router.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
 
 //put

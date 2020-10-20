@@ -6,9 +6,9 @@ const db = require("knex")({
   // CODE HERE
   client: "pg",
   connection: {
-    database: "weekly",
-    user: "hilman",
-    password: "92399831",
+    database: process.env.DB_NAME,
+    user: process.env.DB_USERNAME,
+    password: process.env.PASSWORD,
   },
 });
 

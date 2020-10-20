@@ -96,6 +96,10 @@ router.get("/edit/private/:name/:id", function (req, res) {
     });
 });
 
+router.get("/signIn", function (req, res) {
+  res.render("signin");
+});
+
 //post
 router.post("/post/:name", (req, res) => {
   const uName = req.params.name;
@@ -135,6 +139,17 @@ router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 });
+
+//sign up
+
+router.post(
+  "/signup",
+  passport.authenticate("local-signup", { failureRedirect: "/" }),
+  function (req, res) {
+    const { username, password } = req.body;
+    res.redirect(`/files/body/${username}`);
+  }
+);
 
 //put
 router.post("/put/:name/:id", async (req, res) => {
